@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Check } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -89,13 +90,14 @@ export default function Home() {
 
               <div className="space-y-3 pt-2">
                 <Button
-                  disabled
-                  className="h-auto rounded-2xl bg-linear-to-r from-brand to-brand-strong px-8 py-4 text-lg font-semibold text-brand-foreground shadow-lg"
+                  render={<Link href="/register" />}
+                  className="h-auto cursor-pointer rounded-2xl bg-linear-to-r from-brand to-brand-strong px-8 py-4 text-lg font-semibold text-brand-foreground shadow-lg transition-all hover:shadow-xl"
                 >
-                  Coming soon
+                  Start tracking
                 </Button>
                 <p className="text-sm text-slate-500 dark:text-slate-400">
-                  Still being built. Check back soon.
+                  Free, and you can sign in already. The tracking screens
+                  themselves are still being built.
                 </p>
               </div>
             </div>
