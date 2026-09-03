@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 const exampleWeek: CapacityRow[] = [
   { name: "Acme Bank", logged: 20, capacity: 32 },
   { name: "Northwind", logged: 25, capacity: 16 },
+  { name: "Riverstone", logged: 8, capacity: 12 },
   { name: "Internal", logged: 0, capacity: 8 },
 ];
 
@@ -30,11 +31,11 @@ export function CapacityPreview({
   return (
     <div
       className={cn(
-        "rounded-2xl border border-slate-200/80 bg-white p-6 shadow-2xl sm:p-8 dark:border-slate-700 dark:bg-slate-800",
+        "rounded-2xl border border-slate-200/80 bg-white p-5 shadow-2xl sm:p-6 dark:border-slate-700 dark:bg-slate-800",
         className,
       )}
     >
-      <div className="mb-8 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+      <div className="mb-5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <h2 className="text-base font-semibold text-slate-900 dark:text-white">
           {title}
         </h2>
@@ -46,7 +47,7 @@ export function CapacityPreview({
       <CapacityChart rows={rows} height={height} />
 
       {showLegend ? (
-        <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-slate-200 pt-5 text-xs text-slate-500 dark:border-slate-700 dark:text-slate-400">
+        <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-slate-200 pt-4 text-xs text-slate-500 dark:border-slate-700 dark:text-slate-400">
           <span className="flex items-center gap-2">
             <span className="size-2.5 rounded-full bg-capacity-filled" />
             Hours you did

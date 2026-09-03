@@ -1,11 +1,12 @@
 import { Logo } from "@/components/pointly-logo";
+import { SiblingAppMark } from "@/components/app-icons";
 import { site, siblingApps } from "@/lib/site";
 
 export function SiteFooter() {
   return (
     <footer className="relative mt-auto pt-24">
       {/* Curved edge, same shape as the other apps in the suite. */}
-      <div className="absolute top-0 left-0 w-full overflow-hidden leading-[0]">
+      <div className="absolute top-0 left-0 w-full overflow-hidden leading-0">
         <svg
           className="relative -ml-px block h-24 w-[calc(100%+2px)] md:h-32"
           viewBox="0 0 1440 320"
@@ -64,10 +65,15 @@ export function SiteFooter() {
                       href={app.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-slate-300 transition-colors hover:text-white"
+                      className="group flex items-center gap-3 text-sm text-slate-300 transition-colors hover:text-white"
                     >
-                      {app.name}
-                      <span className="text-slate-500"> · {app.description}</span>
+                      <SiblingAppMark name={app.name} className="size-8 rounded-lg" />
+                      <span>
+                        {app.name}
+                        <span className="block text-xs text-slate-500">
+                          {app.description}
+                        </span>
+                      </span>
                     </a>
                   </li>
                 ))}

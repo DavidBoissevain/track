@@ -24,6 +24,7 @@ const promises = [
 const exampleMonth = [
   { name: "Acme Bank", logged: 118, capacity: 128 },
   { name: "Northwind", logged: 76, capacity: 64 },
+  { name: "Riverstone", logged: 20, capacity: 48 },
   { name: "Internal", logged: 12, capacity: 32 },
 ];
 
@@ -82,7 +83,7 @@ export default function Home() {
               <ul className="space-y-4">
                 {promises.map((promise) => (
                   <li key={promise} className="flex items-center gap-3">
-                    <Check className="size-5 shrink-0 text-brand-strong" />
+                    <Check className="size-5 shrink-0 text-brand" />
                     <span className="text-slate-700 dark:text-slate-300">
                       {promise}
                     </span>
@@ -145,15 +146,6 @@ export default function Home() {
                   Every project gets a bar. Grey is what is left, blue is what
                   you did, and red sticks out on top for what you did too much
                   of. One look tells you where to put your time tomorrow.
-                </p>
-                <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-300">
-                  The bars are as tall as the capacity you gave the project, so
-                  the big commitments stand out before you read a single number.
-                </p>
-                <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-300">
-                  Some projects make more sense per week, others per month. You
-                  pick that per project, so the view matches the way you already
-                  think about your work.
                 </p>
               </div>
             </div>

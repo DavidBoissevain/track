@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import {
   Accordion,
   AccordionContent,
@@ -66,6 +68,18 @@ export function Faq() {
             If something is still unclear, send me a message on LinkedIn and I
             will add it here.
           </p>
+          <div className="flex justify-center pt-4">
+            {/* unoptimized: the image optimizer refuses SVG unless
+                dangerouslyAllowSVG is on, and this is a local trusted asset. */}
+            <Image
+              src="/undraw_question.svg"
+              alt="People with question marks"
+              width={500}
+              height={400}
+              unoptimized
+              className="h-auto w-full max-w-md"
+            />
+          </div>
         </div>
 
         <Accordion className="gap-3">
@@ -75,7 +89,7 @@ export function Faq() {
               value={`item-${index}`}
               className="rounded-lg border border-slate-200 bg-white px-6 not-last:border-b dark:border-slate-700 dark:bg-slate-800/50"
             >
-              <AccordionTrigger className="py-5 text-lg font-semibold text-slate-900 hover:no-underline dark:text-white">
+              <AccordionTrigger className="cursor-pointer py-5 text-lg font-semibold text-slate-900 hover:no-underline dark:text-white">
                 {faq.question}
               </AccordionTrigger>
               <AccordionContent className="pb-5 text-base leading-relaxed text-slate-600 dark:text-slate-300">

@@ -7,12 +7,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LogoMark } from "@/components/pointly-logo";
+import { SiblingAppMark } from "@/components/app-icons";
 import { site, siblingApps } from "@/lib/site";
-
-const siblingMarks: Record<string, string> = {
-  SprintVotes: "from-red-500 to-red-600",
-  SprintRetro: "from-emerald-600 to-emerald-700",
-};
 
 export function AppSwitcher() {
   return (
@@ -61,13 +57,7 @@ export function AppSwitcher() {
               rel="noopener noreferrer"
               className="flex w-20 cursor-pointer flex-col items-center gap-2 rounded-xl p-3 transition-colors hover:bg-slate-100 dark:hover:bg-slate-800"
             >
-              <div
-                className={`flex size-12 items-center justify-center rounded-xl bg-linear-to-br shadow-md ${siblingMarks[app.name]}`}
-              >
-                <span className="text-lg font-bold text-white">
-                  {app.name.replace("Sprint", "").charAt(0)}
-                </span>
-              </div>
+              <SiblingAppMark name={app.name} className="size-12 rounded-xl" />
               <span className="text-center text-xs font-medium text-slate-700 dark:text-slate-300">
                 {app.name}
               </span>

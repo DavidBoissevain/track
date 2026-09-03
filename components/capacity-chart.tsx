@@ -76,7 +76,7 @@ export function CapacityChart({
         return (
           <div
             key={row.name}
-            className="flex max-w-24 min-w-0 flex-1 flex-col items-center"
+            className="flex max-w-32 min-w-0 flex-1 flex-col items-center"
           >
             <span
               className={cn(
@@ -114,8 +114,9 @@ export function CapacityChart({
               </div>
             </div>
 
-            {/* Fixed height keeps every column sitting on the same baseline. */}
-            <div className="mt-2 flex h-9 w-full flex-col items-center border-t border-slate-200 pt-2 dark:border-slate-700">
+            {/* Fixed height keeps every column sitting on the same baseline.
+                It has to clear both lines of text or the names get clipped. */}
+            <div className="mt-2 flex h-11 w-full flex-col items-center gap-0.5 border-t border-slate-200 pt-2 leading-tight dark:border-slate-700">
               <span className="w-full truncate text-center text-xs font-medium text-slate-700 dark:text-slate-200">
                 {row.name}
               </span>
