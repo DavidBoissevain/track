@@ -47,13 +47,25 @@ stay safe:
    `app/layout.tsx` with `variable: "--font-poppins"` and needs explicit weights
    because it is not a variable font.
 2. Two token groups were added to `:root` and `.dark`:
-   - `--brand`, `--brand-strong`, `--brand-foreground`: the amber accent. Every
+   - `--brand`, `--brand-strong`, `--brand-foreground`: the blue accent. Every
      app in the suite gets its own accent (SprintVotes red, SprintRetro
      emerald), so this is the one colour that identifies Pointly Track.
    - `--capacity-track`, `--capacity-filled`, `--capacity-over`: grey, blue, red.
      These are semantic, not decorative. Do not reuse them for anything that is
-     not a capacity bar, and do not use the brand amber inside a bar. The whole
-     point is that red on a bar means one thing only.
+     not a capacity bar. The whole point is that red on a bar means one thing
+     only.
+
+**`--brand` and `--capacity-filled` are the same blue on purpose**
+(`oklch(0.588 0.163 254)`, `#277dda`). The accent started as amber, which put
+three competing hues on one page and stole attention from the red that says you
+went over. With one blue, red is the only other colour on screen. Two blues that
+almost matched would have been worse than either, so if you ever change one of
+these, change both. `--capacity-filled` still lightens in dark mode for contrast
+while `--brand` does not, which is the one place they part company.
+
+White sits at 4.17:1 on this blue, ahead of SprintVotes red (3.81) and
+SprintRetro emerald (3.65), so the white glyph in the logo is safe.
+`--brand-strong` (`#0e5abd`) is only the dark end of the logo and CTA gradient.
 
 The shadcn `--chart-1` to `--chart-5` tokens are greyscale because the base
 colour is neutral. They are untouched and unused so far.
