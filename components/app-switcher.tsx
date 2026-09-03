@@ -21,9 +21,13 @@ export function AppSwitcher() {
         render={
           <Button
             variant="outline"
-            className="size-11 rounded-xl border-2 border-slate-200 bg-white/80 shadow-sm backdrop-blur-sm transition-all hover:shadow-md md:size-13 dark:border-slate-700 dark:bg-slate-800/80"
+            className="size-11 cursor-pointer rounded-lg border-2 border-slate-200 bg-white/80 shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95 md:size-13 md:rounded-xl dark:border-slate-700 dark:bg-slate-800/80"
           >
-            <svg viewBox="0 0 24 24" fill="currentColor" className="size-5 md:size-6">
+            <svg
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="h-[1.4rem] w-[1.4rem] md:size-6"
+            >
               <circle cx="5" cy="5" r="2" />
               <circle cx="12" cy="5" r="2" />
               <circle cx="19" cy="5" r="2" />
@@ -38,11 +42,14 @@ export function AppSwitcher() {
           </Button>
         }
       />
-      <DropdownMenuContent align="end" className="w-auto p-3">
-        <div className="grid grid-cols-3 gap-2">
-          <div className="flex w-20 flex-col items-center gap-2 rounded-xl bg-muted p-3">
+      <DropdownMenuContent
+        align="end"
+        className="w-auto border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900"
+      >
+        <div className="grid grid-cols-3 gap-4">
+          <div className="flex w-20 cursor-default flex-col items-center gap-2 rounded-xl p-3">
             <LogoMark size="lg" />
-            <span className="text-center text-xs font-medium">
+            <span className="text-center text-xs font-medium text-slate-700 dark:text-slate-300">
               {site.shortName}
             </span>
           </div>
@@ -52,16 +59,16 @@ export function AppSwitcher() {
               href={app.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex w-20 flex-col items-center gap-2 rounded-xl p-3 transition-colors hover:bg-muted"
+              className="flex w-20 cursor-pointer flex-col items-center gap-2 rounded-xl p-3 transition-colors hover:bg-slate-100 dark:hover:bg-slate-800"
             >
               <div
-                className={`flex size-12 items-center justify-center rounded-xl bg-gradient-to-br shadow-md ${siblingMarks[app.name]}`}
+                className={`flex size-12 items-center justify-center rounded-xl bg-linear-to-br shadow-md ${siblingMarks[app.name]}`}
               >
                 <span className="text-lg font-bold text-white">
                   {app.name.replace("Sprint", "").charAt(0)}
                 </span>
               </div>
-              <span className="text-center text-xs font-medium text-muted-foreground">
+              <span className="text-center text-xs font-medium text-slate-700 dark:text-slate-300">
                 {app.name}
               </span>
             </a>

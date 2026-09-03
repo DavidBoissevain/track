@@ -29,7 +29,7 @@ export function LogoMark({
   return (
     <div
       className={cn(
-        "flex shrink-0 items-center justify-center bg-gradient-to-br from-brand to-brand-strong shadow-md",
+        "flex shrink-0 items-center justify-center bg-linear-to-br from-brand to-brand-strong shadow-md",
         markSizes[size],
         className,
       )}

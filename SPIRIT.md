@@ -27,9 +27,12 @@ picture, in one look, of where you are against what you planned.
    week and others per month.
 2. At the end of the day you type the hours you did per project.
 3. Every project gets a bar:
+   - **How tall the bar is** shows the capacity you gave that project. A four
+     day a week project is twice as tall as a two day a week one, so you see
+     the big commitments at a glance.
    - **Grey** is what is still left to do.
-   - **Blue** fills up as you log hours.
-   - **Red** appears above the line once you go over capacity.
+   - **Blue** fills up from the bottom as you log hours.
+   - **Red** sticks out above the top of the bar once you go over capacity.
 
 Nothing untouched turns red. A project you have not worked on yet is simply all
 grey, which is information too.

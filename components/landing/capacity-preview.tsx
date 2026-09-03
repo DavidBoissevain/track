@@ -1,4 +1,4 @@
-import { CapacityBar, type CapacityBarProps } from "@/components/capacity-bar";
+import { CapacityChart, type CapacityRow } from "@/components/capacity-chart";
 import { cn } from "@/lib/utils";
 
 /**
@@ -6,22 +6,24 @@ import { cn } from "@/lib/utils";
  * period view until the app exists, and doubles as the spec for what that
  * view looks like.
  */
-const exampleWeek: CapacityBarProps[] = [
+const exampleWeek: CapacityRow[] = [
   { name: "Acme Bank", logged: 20, capacity: 32 },
   { name: "Northwind", logged: 25, capacity: 16 },
-  { name: "Internal work", logged: 0, capacity: 8 },
+  { name: "Internal", logged: 0, capacity: 8 },
 ];
 
 export function CapacityPreview({
   title = "This week",
   subtitle = "Mon 2 Mar to Fri 6 Mar",
   rows = exampleWeek,
+  height,
   showLegend = true,
   className,
 }: {
   title?: string;
   subtitle?: string;
-  rows?: CapacityBarProps[];
+  rows?: CapacityRow[];
+  height?: number;
   showLegend?: boolean;
   className?: string;
 }) {
@@ -32,7 +34,7 @@ export function CapacityPreview({
         className,
       )}
     >
-      <div className="mb-6 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+      <div className="mb-8 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <h2 className="text-base font-semibold text-slate-900 dark:text-white">
           {title}
         </h2>
@@ -41,11 +43,7 @@ export function CapacityPreview({
         </span>
       </div>
 
-      <div className="space-y-5">
-        {rows.map((project) => (
-          <CapacityBar key={project.name} {...project} />
-        ))}
-      </div>
+      <CapacityChart rows={rows} height={height} />
 
       {showLegend ? (
         <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-slate-200 pt-5 text-xs text-slate-500 dark:border-slate-700 dark:text-slate-400">

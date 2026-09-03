@@ -24,7 +24,7 @@ const promises = [
 const exampleMonth = [
   { name: "Acme Bank", logged: 118, capacity: 128 },
   { name: "Northwind", logged: 76, capacity: 64 },
-  { name: "Internal work", logged: 12, capacity: 32 },
+  { name: "Internal", logged: 12, capacity: 32 },
 ];
 
 export default function Home() {
@@ -62,7 +62,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="flex min-h-screen flex-col bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+      <div className="flex min-h-screen flex-col bg-linear-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
         <SiteHeader />
 
         <main className="flex flex-grow flex-col items-center px-6 pb-32">
@@ -93,7 +93,7 @@ export default function Home() {
               <div className="space-y-3 pt-2">
                 <Button
                   disabled
-                  className="h-auto rounded-2xl bg-gradient-to-r from-brand to-brand-strong px-8 py-4 text-lg font-semibold text-brand-foreground shadow-lg"
+                  className="h-auto rounded-2xl bg-linear-to-r from-brand to-brand-strong px-8 py-4 text-lg font-semibold text-brand-foreground shadow-lg"
                 >
                   Coming soon
                 </Button>
@@ -143,8 +143,12 @@ export default function Home() {
                 </h2>
                 <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-300">
                   Every project gets a bar. Grey is what is left, blue is what
-                  you did, and red is what you did too much of. One look tells
-                  you where to put your time tomorrow.
+                  you did, and red sticks out on top for what you did too much
+                  of. One look tells you where to put your time tomorrow.
+                </p>
+                <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-300">
+                  The bars are as tall as the capacity you gave the project, so
+                  the big commitments stand out before you read a single number.
                 </p>
                 <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-300">
                   Some projects make more sense per week, others per month. You

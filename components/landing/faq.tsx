@@ -30,7 +30,12 @@ const faqs = [
   {
     question: "What happens if I go over?",
     answer:
-      "The bar turns red for the hours above your capacity, so you spot it right away. Nothing gets blocked and nobody gets told. It is there so you can adjust.",
+      "Red sticks out above the top of the bar for the hours you did too much, so you spot it right away. Nothing gets blocked and nobody gets told. It is there so you can adjust.",
+  },
+  {
+    question: "Why are some bars taller than others?",
+    answer:
+      "Because the height is the capacity you gave that project. A project you set to four days a week gets a bar twice as tall as one you set to two days a week. That way you see which projects are the big ones without reading any numbers.",
   },
   {
     question: "Do I need an account?",

@@ -58,9 +58,9 @@ stay safe:
 The shadcn `--chart-1` to `--chart-5` tokens are greyscale because the base
 colour is neutral. They are untouched and unused so far.
 
-## The capacity bar
+## The capacity chart
 
-`components/capacity-bar.tsx` is the one component worth being careful about,
+`components/capacity-chart.tsx` is the one component worth being careful about,
 because the real app reuses it and the landing page only mocks data into it.
 
 Hours are always the stored unit. Capacity is stored in hours too, and the
@@ -68,19 +68,30 @@ Hours are always the stored unit. Capacity is stored in hours too, and the
 `hoursPerDay` (default 8) doing the conversion. That is what makes "capacity in
 days, but hours if you prefer" work without two storage formats.
 
-Geometry, given `logged` and `capacity` in hours:
+**Vertical columns on one shared scale.** The chart owns the scale rather than
+the individual bar, which is why there is no exported single bar component:
 
 ```
-scale  = max(1, logged / capacity)
-blue   = min(logged, capacity) / capacity / scale
-red    = max(0, logged - capacity) / capacity / scale
-grey   = whatever is left of the track
+maxValue    = max over all rows of max(capacity, logged)
+greyHeight  = capacity / maxValue * height          (px, floor of 4)
+redHeight   = max(0, logged - capacity) / maxValue * height
+blueHeight  = min(logged, capacity) / capacity      (% of its own grey column)
 ```
 
-Dividing by `scale` squeezes an over capacity row so the overshoot stays on
-screen instead of running off the end, and the capacity line is drawn as a thin
-marker at the end of the blue segment. A row exactly on capacity is fully blue
-with no red. `capacity <= 0` is guarded and renders an empty track.
+Two decisions are load bearing here and should not be quietly undone:
+
+1. **Column height encodes capacity.** Equal length bars were the first attempt
+   and were wrong: they hid which projects are the big commitments. A project
+   with twice the capacity must render twice as tall.
+2. **Vertical, not horizontal.** Comparing heights side by side is easier than
+   comparing lengths stacked down a page.
+
+Blue is a percentage of its own column rather than of `maxValue`, so it always
+stops exactly at the capacity line no matter what the other projects do. Red
+sits on top of the grey column and takes the rounded top when present. A row
+exactly on capacity is a full blue column with no red. `capacity <= 0` renders
+no column, and the project name block has a fixed height so every column sits
+on the same baseline even when a name wraps.
 
 ## Landing page composition
 
