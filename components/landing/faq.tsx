@@ -20,11 +20,6 @@ const faqs = [
       "No. Nothing runs in the background. You type in the hours you did, the same way you would fill in a sheet at the end of the day.",
   },
   {
-    question: "Do I work in hours or in days?",
-    answer:
-      "You fill in hours, because that is how the day actually breaks up. Capacity you can set in days, and if you would rather set it in hours you can do that too.",
-  },
-  {
     question: "Can I set capacity per week and per month?",
     answer:
       "Yes. Some projects are easier to think about per week, like two days a week. Others make more sense per month, like four days a month. You pick that per project.",
@@ -33,11 +28,6 @@ const faqs = [
     question: "What happens if I go over?",
     answer:
       "Red sticks out above the top of the bar for the hours you did too much, so you spot it right away. Nothing gets blocked and nobody gets told. It is there so you can adjust.",
-  },
-  {
-    question: "Why are some bars taller than others?",
-    answer:
-      "Because the height is the capacity you gave that project. A project you set to four days a week gets a bar twice as tall as one you set to two days a week. That way you see which projects are the big ones without reading any numbers.",
   },
   {
     question: "Do I need an account?",

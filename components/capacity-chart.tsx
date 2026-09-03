@@ -31,6 +31,9 @@ function formatAmount(
   return `${rounded}${display === "days" ? "d" : "h"}`;
 }
 
+/** Below this the hours label will not fit inside the blue, so it goes above it. */
+const LABEL_MIN_PX = 22;
+
 /**
  * One project, one column. Grey is what is left, blue is what you did, red
  * sticks out above the top for what you did too much of.
@@ -38,6 +41,12 @@ function formatAmount(
  * Every column is measured against the same scale, so a project with twice
  * the capacity gets a column twice as tall. That is the point: height tells
  * you how big a commitment is before you read a single number.
+ *
+ * The hours label sits at the top of the blue, not at the top of the column.
+ * Above the column it read as the capacity, which is the one number it is not:
+ * capacity is the grey top, and it is written under the project name. Only an
+ * over capacity project keeps its label at the very top, in red, where it
+ * labels the red tip.
  */
 export function CapacityChart({
   rows,
@@ -69,6 +78,9 @@ export function CapacityChart({
           ? (Math.min(row.logged, row.capacity) / row.capacity) * 100
           : 0;
         const isOver = over > 0;
+        // Room for the label inside the blue, or does it go just above it?
+        const filledPx = (capacityPx * filledPct) / 100;
+        const labelFitsInside = filledPx >= LABEL_MIN_PX;
 
         const loggedLabel = formatAmount(row.logged, display, hoursPerDay);
         const capacityLabel = formatAmount(row.capacity, display, hoursPerDay);
@@ -78,27 +90,21 @@ export function CapacityChart({
             key={row.name}
             className="flex max-w-32 min-w-0 flex-1 flex-col items-center"
           >
-            <span
-              className={cn(
-                "mb-2 text-xs tabular-nums",
-                isOver
-                  ? "font-semibold text-capacity-over"
-                  : "text-slate-500 dark:text-slate-400",
-              )}
-            >
-              {loggedLabel}
-            </span>
-
             <div
               role="img"
               aria-label={`${row.name}: ${loggedLabel} logged of ${capacityLabel} capacity`}
               className="flex w-full flex-col justify-end"
             >
               {isOver ? (
-                <div
-                  className="w-full rounded-t-md bg-capacity-over"
-                  style={{ height: `${overPx.toFixed(2)}px` }}
-                />
+                <>
+                  <span className="mb-1.5 text-center text-xs font-semibold tabular-nums text-capacity-over">
+                    {loggedLabel}
+                  </span>
+                  <div
+                    className="w-full rounded-t-md bg-capacity-over"
+                    style={{ height: `${overPx.toFixed(2)}px` }}
+                  />
+                </>
               ) : null}
               <div
                 className={cn(
@@ -110,7 +116,21 @@ export function CapacityChart({
                 <div
                   className="absolute inset-x-0 bottom-0 bg-capacity-filled"
                   style={{ height: `${filledPct.toFixed(2)}%` }}
-                />
+                >
+                  {!isOver && labelFitsInside ? (
+                    <span className="absolute inset-x-0 top-1 text-center text-xs font-semibold tabular-nums text-white dark:text-slate-900">
+                      {loggedLabel}
+                    </span>
+                  ) : null}
+                </div>
+                {!isOver && !labelFitsInside ? (
+                  <span
+                    className="absolute inset-x-0 text-center text-xs tabular-nums text-slate-500 dark:text-slate-400"
+                    style={{ bottom: `${filledPct.toFixed(2)}%` }}
+                  >
+                    {loggedLabel}
+                  </span>
+                ) : null}
               </div>
             </div>
 

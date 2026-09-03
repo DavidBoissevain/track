@@ -4,7 +4,10 @@ import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { CapacityPreview } from "@/components/landing/capacity-preview";
+import {
+  CapacityPreview,
+  exampleWeek,
+} from "@/components/landing/capacity-preview";
 import { EntryPreview } from "@/components/landing/entry-preview";
 import { Faq } from "@/components/landing/faq";
 import { StatsPlaceholder } from "@/components/landing/stats-placeholder";
@@ -19,13 +22,6 @@ const promises = [
   "No timers, just the hours you did",
   "Capacity per week or per month",
   "Free, no ads, no tracking",
-];
-
-const exampleMonth = [
-  { name: "Acme Bank", logged: 118, capacity: 128 },
-  { name: "Northwind", logged: 76, capacity: 64 },
-  { name: "Riverstone", logged: 20, capacity: 48 },
-  { name: "Internal", logged: 12, capacity: 32 },
 ];
 
 export default function Home() {
@@ -132,9 +128,9 @@ export default function Home() {
             <div className="grid items-center gap-12 md:grid-cols-2">
               <div className="order-2 md:order-1">
                 <CapacityPreview
-                  title="March"
-                  subtitle="Capacity set per month"
-                  rows={exampleMonth}
+                  title="This week"
+                  subtitle="Mon 2 Mar to Fri 6 Mar"
+                  rows={exampleWeek}
                   showLegend={false}
                 />
               </div>

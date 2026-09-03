@@ -98,6 +98,18 @@ Two decisions are load bearing here and should not be quietly undone:
 2. **Vertical, not horizontal.** Comparing heights side by side is easier than
    comparing lengths stacked down a page.
 
+**Where the hours label goes.** It sits at the top of the blue, inside it, not
+above the column. Above the column it read as the capacity, which is the one
+number it is not: capacity is the grey top and it is written under the project
+name. An over capacity project is the exception and keeps its label at the very
+top in red, where it labels the red tip. If the blue is shorter than
+`LABEL_MIN_PX` the label falls back to sitting just above the fill line in the
+grey, which is what a project with nothing logged yet gets.
+
+The inside label is `text-white dark:text-slate-900`. White on the light fill is
+4.17:1, but on the lighter dark mode fill it drops to 3.27:1, so dark text takes
+over there at 5.45:1.
+
 Blue is a percentage of its own column rather than of `maxValue`, so it always
 stops exactly at the capacity line no matter what the other projects do. Red
 sits on top of the grey column and takes the rounded top when present. A row

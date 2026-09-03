@@ -6,17 +6,29 @@ import { cn } from "@/lib/utils";
  * period view until the app exists, and doubles as the spec for what that
  * view looks like.
  */
-const exampleWeek: CapacityRow[] = [
-  { name: "Acme Bank", logged: 20, capacity: 32 },
-  { name: "Northwind", logged: 25, capacity: 16 },
-  { name: "Riverstone", logged: 8, capacity: 12 },
-  { name: "Internal", logged: 0, capacity: 8 },
+/* Hours are the stored unit, so these are hours. In days at 8h that reads:
+   12d of 16d, 9.5d of 8d, 2.5d of 6d, 3d of 4d. Two whole days logged, two
+   halves, every capacity a whole number of days, and nothing on zero. */
+export const exampleMonth: CapacityRow[] = [
+  { name: "Acme Bank", logged: 96, capacity: 128 },
+  { name: "Northwind", logged: 76, capacity: 64 },
+  { name: "Riverstone", logged: 20, capacity: 48 },
+  { name: "Internal", logged: 24, capacity: 32 },
+];
+
+/* 3d of 4d, 1.5d of 3d, 2.5d of 2d, 1d of 1d. Internal lands exactly on
+   capacity, which is the one case that is full blue with no red at all. */
+export const exampleWeek: CapacityRow[] = [
+  { name: "Acme Bank", logged: 24, capacity: 32 },
+  { name: "Riverstone", logged: 12, capacity: 24 },
+  { name: "Northwind", logged: 20, capacity: 16 },
+  { name: "Internal", logged: 8, capacity: 8 },
 ];
 
 export function CapacityPreview({
-  title = "This week",
-  subtitle = "Mon 2 Mar to Fri 6 Mar",
-  rows = exampleWeek,
+  title = "March",
+  subtitle = "Capacity set per month",
+  rows = exampleMonth,
   height,
   showLegend = true,
   className,
