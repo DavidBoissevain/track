@@ -114,10 +114,10 @@ export default function Home() {
             <div className="grid items-center gap-12 md:grid-cols-2">
               <div className="space-y-6">
                 <h2 className="text-4xl font-bold text-slate-900 dark:text-white">
-                  Fill in your hours, nothing else
+                  Track your hours
                 </h2>
                 <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-300">
-                  At the end of the day you type how many hours went to which
+                  At the end of the day or week you type how many hours went to which
                   project. No start button, no stop button, and no timer running
                   in the background that you forgot about.
                 </p>
