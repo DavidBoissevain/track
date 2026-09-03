@@ -135,15 +135,98 @@ JSON-LD is inlined with `dangerouslySetInnerHTML` over a local static object,
 which is the pattern in the Next docs (`02-guides/json-ld.md`). No user input
 reaches it.
 
+## Auth
+
+Supabase Auth, `@supabase/ssr` 0.12.5 and `@supabase/supabase-js` 2.115.0, both
+pinned exactly because Supabase's own npm guidance says to. Google OAuth plus
+email and password. No second OAuth provider on purpose: Google covers most
+people and email covers the rest, and every extra provider is another external
+registration to keep alive.
+
+**Next 16 calls it Proxy, not Middleware.** The file is `proxy.ts` in the repo
+root and it exports `proxy`, not `middleware`. Same job as before. Supabase's
+docs already use the new name.
+
+**Publishable key, not the anon key.** `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+holds an `sb_publishable_…` key. It is meant to be public and only reaches what
+row level security allows. The legacy `anon` JWT still works but is on the way
+out. No secret key exists in this app, and none should until something server
+side genuinely has to bypass RLS.
+
+`NEXT_PUBLIC_SUPABASE_URL` is the project root with no `/rest/v1` on the end.
+The client appends `/rest/v1` and `/auth/v1` itself.
+
+`.gitignore` needs its `!.env.example` line. The `.env*` rule above it would
+otherwise swallow the template and it would never be committed.
+
+**Three clients, three jobs** (`lib/supabase/`):
+
+- `client.ts` for Client Components.
+- `server.ts` for Server Components, Server Actions and Route Handlers.
+  `cookies()` is async in Next 16, so it is awaited. Its `setAll` swallows the
+  write error, because Server Components are not allowed to set cookies and the
+  proxy has already refreshed the session by then.
+- `proxy.ts` for the refresh itself, called from the root `proxy.ts`.
+
+**`setAll` takes a second argument.** In 0.12.5 the signature is
+`setAll(cookiesToSet, headers)`, where `headers` carries
+`Cache-Control: private, no-cache, no-store, must-revalidate, max-age=0` and
+friends. They have to be copied onto the response. A response carrying a
+`Set-Cookie` for a session must never be cached by a CDN, or one visitor is
+served another visitor's token. The older single argument form compiles fine
+and drops them silently, so this was checked against the installed types rather
+than written from memory.
+
+**`getClaims()`, never `getSession()`, in server code.** `getSession()` reads
+the cookie without verifying it, so it cannot be trusted server side.
+`getClaims()` verifies the JWT against the project's JWKS and is also cheaper
+than `getUser()`, which always makes a network round trip.
+
+**The proxy is an optimistic check, not authorisation.** Next's own docs say so.
+It redirects signed out visitors away from `/app` and signed in ones away from
+`/login` and `/register`, but `app/app/page.tsx` calls `getClaims()` again and
+decides for itself. When the proxy redirects it copies the refreshed cookies
+onto the redirect response, otherwise a just-refreshed session is thrown away.
+
+If the env vars are missing the proxy returns early instead of throwing, so the
+marketing pages keep working on a machine with no Supabase config.
+
+**Email confirmation is off**, so `signUp` returns a session immediately and the
+user lands straight in the app. This is deliberate and temporary: Supabase's
+built-in mailer has only delivered to organisation members since September 2024,
+so with confirmation on, a real signup would wait for an email that never comes.
+`signUp` still handles the no-session case rather than redirecting into a screen
+that will not let them in.
+
+**Launch blockers this leaves behind:** no password reset, and no email
+confirmation. Both need custom SMTP, for example Resend, configured in Supabase.
+Do that before real users arrive.
+
+## When the database arrives
+
+No tables exist yet, so there is no RLS to write. When projects and hours land,
+from Supabase's own security checklist:
+
+- Enable RLS on every table in `public`. New tables are no longer exposed to the
+  Data API automatically, so the `authenticated` role also needs an explicit
+  grant.
+- `TO authenticated` on its own is authentication without authorisation. Pair it
+  with an ownership predicate: `using ((select auth.uid()) = user_id)`.
+- UPDATE policies need both `USING` and `WITH CHECK`, or a user can reassign a
+  row's `user_id` to somebody else. An UPDATE also needs a SELECT policy or it
+  silently changes zero rows with no error.
+- Never read `user_metadata` for authorisation. It is user editable. Use
+  `app_metadata`.
+- Views bypass RLS unless created `WITH (security_invoker = true)`.
+
 ## Not built yet, and why
 
-- **Auth and database.** Decided: accounts with a hosted database, so hours sync
-  between laptop and phone. Nothing is implemented, and the FAQ copy already
-  promises "stored so you can get them back, never sold, delete the account and
-  it all goes". Whatever gets built has to keep that true.
-- **`/privacy`.** Deliberately skipped. It should land in the same step as auth,
-  because that is the first moment there is real data to describe. Until then the
-  footer only links to pages that exist, so there are no dead links.
+- **The app itself.** Auth is in, `/app` is a placeholder. Projects, capacities
+  and hour entry are the next step, and the first thing that needs a database.
+- **`/privacy`.** Still missing, and now overdue: accounts exist, so there is
+  real data to describe. The FAQ already promises "stored so you can get them
+  back, never sold, delete the account and it all goes". Whatever gets built has
+  to keep that true, including an actual way to delete an account.
 - **Usage counter and demo video.** Both are placeholders. The counter is a
   dashed box in `components/landing/stats-placeholder.tsx`. The hero shows the
   bar mock instead of a video, and the video can replace it later.
