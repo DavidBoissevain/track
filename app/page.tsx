@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Check } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -68,7 +69,7 @@ export default function Home() {
             <div className="space-y-8">
               <div className="space-y-4">
                 <h1 className="text-4xl leading-tight font-bold tracking-tight text-slate-900 md:text-5xl lg:text-6xl dark:text-white">
-                  Your capacity, at a glance.
+                  Project time tracking
                 </h1>
                 <p className="text-lg leading-relaxed text-slate-500 md:text-xl dark:text-slate-400">
                   Log the hours you did per project and see straight away which
@@ -89,13 +90,17 @@ export default function Home() {
 
               <div className="space-y-3 pt-2">
                 <Button
-                  disabled
-                  className="h-auto rounded-2xl bg-linear-to-r from-brand to-brand-strong px-8 py-4 text-lg font-semibold text-brand-foreground shadow-lg"
+                  render={<Link href="/register" />}
+                  // The render prop produces an <a>, not a <button>, so base-ui
+                  // needs telling or it applies native button semantics.
+                  nativeButton={false}
+                  className="h-auto cursor-pointer rounded-2xl bg-linear-to-r from-brand to-brand-strong px-8 py-4 text-lg font-semibold text-brand-foreground shadow-lg transition-all hover:shadow-xl"
                 >
-                  Coming soon
+                  Start tracking
                 </Button>
                 <p className="text-sm text-slate-500 dark:text-slate-400">
-                  Still being built. Check back soon.
+                  Free, and you can sign in already. The tracking screens
+                  themselves are still being built.
                 </p>
               </div>
             </div>

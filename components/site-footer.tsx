@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Logo } from "@/components/pointly-logo";
 import { SiblingAppMark } from "@/components/app-icons";
 import { site, siblingApps } from "@/lib/site";
@@ -33,6 +35,14 @@ export function SiteFooter() {
             <div className="space-y-4">
               <h3 className="text-lg font-bold">Connect</h3>
               <ul className="space-y-3">
+                <li>
+                  <Link
+                    href="/privacy"
+                    className="text-sm text-slate-300 transition-colors hover:text-white"
+                  >
+                    Privacy policy
+                  </Link>
+                </li>
                 <li>
                   <a
                     href={site.author.linkedin}

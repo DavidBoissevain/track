@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { AppSwitcher } from "@/components/app-switcher";
 import { Logo } from "@/components/pointly-logo";
 import { ModeToggle } from "@/components/mode-toggle";
@@ -8,6 +10,12 @@ export function SiteHeader() {
     <header className="flex items-center justify-between p-6">
       <Logo href="/" textClassName="text-slate-900 dark:text-white" />
       <div className="flex items-center gap-3">
+        <Link
+          href="/login"
+          className="hidden px-2 text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 sm:inline dark:text-slate-300 dark:hover:text-white"
+        >
+          Sign in
+        </Link>
         <a
           href={site.author.coffee}
           target="_blank"
