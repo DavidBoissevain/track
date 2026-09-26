@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { controlButtonClass } from "@/components/control-button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,18 +12,16 @@ import { site, siblingApps } from "@/lib/site";
 
 export function AppSwitcher() {
   return (
-    <DropdownMenu>
+    // Non-modal: a modal Base UI menu locks body scroll, which hides the
+    // scrollbar and shifts the page while the menu is open
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger
         render={
-          <Button
-            variant="outline"
-            className="size-11 cursor-pointer rounded-lg border-2 border-slate-200 bg-white/80 shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95 md:size-13 md:rounded-xl dark:border-slate-700 dark:bg-slate-800/80"
+          <button
+            type="button"
+            className={`${controlButtonClass} hover:scale-105 active:scale-95`}
           >
-            <svg
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="h-[1.4rem] w-[1.4rem] md:size-6"
-            >
+            <svg viewBox="0 0 24 24" fill="currentColor" className="size-4">
               <circle cx="5" cy="5" r="2" />
               <circle cx="12" cy="5" r="2" />
               <circle cx="19" cy="5" r="2" />
@@ -35,7 +33,7 @@ export function AppSwitcher() {
               <circle cx="19" cy="19" r="2" />
             </svg>
             <span className="sr-only">Switch apps</span>
-          </Button>
+          </button>
         }
       />
       <DropdownMenuContent
